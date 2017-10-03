@@ -1,0 +1,16 @@
+
+%baseRegularFont {
+    font-family: $baseFont;
+    font-weight: 300;
+    
+}
+@mixin border {
+    border-left:1px solid $lineColor;
+    border-right: 1px solid $lineColor;
+}
+@mixin centerer {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
