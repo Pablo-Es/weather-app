@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-container fluid>
+    <v-container fluid grid-list-lg>
       <v-layout row wrap>
         <map-view/>
         <accordion/>
@@ -25,6 +25,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
 }
 </style>

@@ -6,7 +6,6 @@
       </v-flex>
       <v-flex md2>
         <v-select
-          :items="items"
           label="Standard"
           text-sm-right
         ></v-select>
@@ -15,18 +14,15 @@
     <v-layout>
       <v-flex xs12>
         <GmapMap
-          :center="{lat:10, lng:10}"
-          :zoom="7"
-          map-type-id="terrain"
+          @click="getInfoEvent"
+          :center="center"
+          :zoom="2"
           style="width: 100%; height: 80vh"
         >
-          <GmapMarker
-            :key="index"
-            v-for="(m, index) in markers"
-            :position="m.position"
-            :clickable="true"
-            :draggable="true"
-            @click="center=m.position"
+          <marker-view
+            :key="position.id"
+            v-for="position in positions"
+          :markerPos="position"
           />
         </GmapMap>
       </v-flex>
@@ -37,28 +33,26 @@
 </template>
 
 <script>
+    import MarkerView from "./MarkerView";
     export default {
       name: "MapView",
+      components: {MarkerView},
       data() {
         return {
           center: {
-            lat: 10.0,
-            lng: 10.0
+            lat: 31.7603389,
+            lng: 29.6303935
           },
-          markers: [{
-            position: {
-              lat: 10.0,
-              lng: 10.0
-            }
-          }, {
-            position: {
-              lat: 11.0,
-              lng: 11.0
-            }
-          }]
+          positions: [],
+
 
         }
-      }
+      },
+      methods:{
+        getInfoEvent(e) {
+          this.positions.push(e.latLng);
+        }
+      },
     }
 </script>
 
