@@ -4,11 +4,12 @@
       <v-flex md10>
         <h2 class=" text-sm-left">World map</h2>
       </v-flex>
-      <v-flex md2>
-        <v-select
-          label="Standard"
-          text-sm-right
-        ></v-select>
+      <v-flex md2 d-flex>
+        <select name="data-category">
+
+          <option :key="category.id" v-for="category in selectProperties" :value="category">{{category}}</option>
+
+        </select>
       </v-flex>
     </v-layout>
     <v-layout>
@@ -16,7 +17,7 @@
         <GmapMap
           @click="getInfoEvent"
           :center="center"
-          :zoom="2"
+          :zoom="3"
           style="width: 100%; height: 80vh"
         >
           <marker-view
@@ -34,6 +35,7 @@
 
 <script>
     import MarkerView from "./MarkerView";
+    import {AxiosInstance as axios} from "axios";
     export default {
       name: "MapView",
       components: {MarkerView},
@@ -44,14 +46,27 @@
             lng: 29.6303935
           },
           positions: [],
+          currentTemp: '',
+          selectProperties: ['temperature', 'humidity', 'pressure']
+
 
 
         }
       },
       methods:{
         getInfoEvent(e) {
-          this.positions.push(e.latLng);
-        }
+          const {latLng: {lat, lng}} = e;
+          let pos = {
+            lat: lat(),
+            lng: lng()
+          };
+
+          this.positions.push(pos);
+          console.log(pos);
+          console.log(this.positions);
+
+        },
+
       },
     }
 </script>

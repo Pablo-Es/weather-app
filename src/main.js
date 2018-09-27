@@ -8,8 +8,10 @@ import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 // main.js
 import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
 import * as VueGoogleMaps from 'vue2-google-maps'
+import axios from 'axios'
 
 Vue.use(Vuetify)
+Vue.use(axios)
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyDi7uBH7sI477wemf1ZA9ispj5Odsmq2Bo',
