@@ -9,9 +9,15 @@ import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
 import * as VueGoogleMaps from 'vue2-google-maps'
 import axios from 'axios'
+import VueAxios from 'vue-axios'
+import Vuex from 'vuex'
+import store from "./store";
+
+Vue.use(Vuex)
+
+Vue.use(VueAxios, axios)
 
 Vue.use(Vuetify)
-Vue.use(axios)
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyDi7uBH7sI477wemf1ZA9ispj5Odsmq2Bo',
@@ -42,6 +48,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'

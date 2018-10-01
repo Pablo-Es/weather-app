@@ -1,11 +1,13 @@
 <template>
   <div id="app">
+    <v-app>
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
         <map-view/>
         <accordion/>
       </v-layout>
     </v-container>
+    </v-app>
   </div>
 </template>
 
