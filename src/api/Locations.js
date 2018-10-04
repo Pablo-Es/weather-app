@@ -1,11 +1,8 @@
 export default class {
-  static getBaseUrl() {
-    return  ``
-  }
 
-  static fetchAll() {
+  static fetchAll(lat,lng) {
     return new Promise((resolve, reject) => {
-      axios.get(this.getBaseUrl())
+      axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&APPID=ba74e775820c1854af18db066eb9d76e`)
         .then(response => {
           resolve(response.data);
         })
