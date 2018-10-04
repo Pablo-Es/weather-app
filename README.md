@@ -1,6 +1,6 @@
-# y
+# Weather app
 
-> y
+> Build on Vue.js 2
 
 ## Build Setup
 
