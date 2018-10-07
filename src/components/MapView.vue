@@ -15,7 +15,7 @@
     <v-layout>
       <v-flex xs12>
         <GmapMap
-          @click="getInfoEvent"
+          @click="cord"
           :center="center"
           :zoom="zoom"
           style="width: 100%; height: 80vh"
@@ -48,7 +48,7 @@
 
 <script>
     import MarkerView from "./MarkerView";
-    import {AxiosInstance as axios} from "axios";
+    import {mapActions, mapGetters, mapState} from 'vuex'
     export default {
       name: "MapView",
       components: {MarkerView},
@@ -68,7 +68,29 @@
 
         }
       },
+      computed: {
+        ...mapState({
+          cordState: (state) => state.map.cords,
+        })
+      },
       methods:{
+        ...mapActions({
+          fetchAll: 'map/fetchAll',
+          setCordLoc: 'map/setCordLoc',
+        }),
+        cord:{
+          get() {
+            this.cordState();
+          },
+          set(e) {
+            const {latLng: {lat, lng}} = e;
+            let pos = {
+              lat: lat(),
+              lng: lng()
+            };
+            this.setCordLoc(pos);
+          }
+        },
         getInfoEvent(e) {
           const {latLng: {lat, lng}} = e;
           let pos = {
@@ -81,6 +103,9 @@
 
 
         },
+
+      },
+      mounted() {
 
       },
     }
