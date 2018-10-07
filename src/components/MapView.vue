@@ -15,7 +15,7 @@
     <v-layout>
       <v-flex xs12>
         <GmapMap
-          @click="cord"
+          @click="getInfoEvent"
           :center="center"
           :zoom="zoom"
           style="width: 100%; height: 80vh"
@@ -42,73 +42,48 @@
         </v-dialog>
       </v-layout>
 
-
   </v-flex>
 </template>
 
 <script>
-    import MarkerView from "./MarkerView";
-    import {mapActions, mapGetters, mapState} from 'vuex'
-    export default {
-      name: "MapView",
-      components: {MarkerView},
-      data() {
-        return {
-          dialog: false,
-          center: {
-            lat: 49.0795316,
-            lng: 9.1522207
-          },
-          zoom: 5,
-          positions: [],
-          currentTemp: '',
-          dataCategories: ['temperature', 'humidity', 'pressure']
-
-
-
-        }
+import MarkerView from './MarkerView'
+import { mapActions } from 'vuex'
+import {AxiosInstance as axios} from 'axios'
+export default {
+  name: 'MapView',
+  components: {MarkerView},
+  data () {
+    return {
+      dialog: false,
+      center: {
+        lat: 49.0795316,
+        lng: 9.1522207
       },
-      computed: {
-        ...mapState({
-          cordState: (state) => state.map.cords,
-        })
-      },
-      methods:{
-        ...mapActions({
-          fetchAll: 'map/fetchAll',
-          setCordLoc: 'map/setCordLoc',
-        }),
-        cord:{
-          get() {
-            this.cordState();
-          },
-          set(e) {
-            const {latLng: {lat, lng}} = e;
-            let pos = {
-              lat: lat(),
-              lng: lng()
-            };
-            this.setCordLoc(pos);
-          }
-        },
-        getInfoEvent(e) {
-          const {latLng: {lat, lng}} = e;
-          let pos = {
-            lat: lat(),
-            lng: lng()
-          };
+      zoom: 5,
+      positions: [],
+      currentTemp: '',
+      dataCategories: ['temperature', 'humidity', 'pressure']
 
-          this.positions.push(pos);
-          this.dialog = true;
-
-
-        },
-
-      },
-      mounted() {
-
-      },
     }
+  },
+  methods: {
+    ...mapActions({
+      setCord: 'map/setCord'
+    }),
+    getInfoEvent (e) {
+      const {latLng: {lat, lng}} = e
+      let pos = {
+        lat: lat(),
+        lng: lng()
+      }
+
+      this.positions.push(pos)
+      this.dialog = true
+      this.setCord(pos)
+    }
+
+  }
+}
 </script>
 
 <style scoped>

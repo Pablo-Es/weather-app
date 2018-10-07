@@ -1,68 +1,51 @@
-import Locations from '../../api/Locations';
+import Locations from '../../api/Locations'
 
-import * as types from '../mutation-types';
+import * as types from '../mutation-types'
 
-
-
-let cancelToken =  null;
-let timeoutToken =  null;
+let cancelToken = null
+let timeoutToken = null
 
 // initial state
 const state = {
 
-        cords:null,
-  all:[],
-};
+  cords: null
+}
 
 // getters
 const getters = {
 
-
-
-};
+}
 
 // actions
 const actions = {
-  setCordLoc({ commit}, payload){
-    commit(types.LOCATIONS_CORD_SET, payload);
+  setCord ({commit}, cords) {
+    console.log(cords)
+    commit(types.LOCATIONS_CORD_SET, cords)
   },
-
-  fetchAll({commit}) {
+  fetchAll ({commit}) {
     commit(types.LOCATIONS_ALL_SET, {
       items: []
-    });
+    })
     return Locations
-      .fetchAll(lat,lng)
-
+      .fetchAll(lat, lng)
       .then(data => {
         commit(types.LOCATIONS_ALL_SET, {
           items: data
         })
-      });
+      })
   }
 
-};
-
+}
 
 // mutations
 const mutations = {
 
   [types.LOCATIONS_ALL_SET] (state, {items}) {
-
-
-    state.all = state.all.concat(items);
-
+    state.all = state.all.concat(items)
   },
   [types.LOCATIONS_CORD_SET] (state, payload) {
-
-
-    state.cords = payload;
-
-  },
-
-
-
-
+    state.cords = payload
+  }
 
 }
 
@@ -74,6 +57,3 @@ export default {
   actions,
   mutations
 }
-
-
-
