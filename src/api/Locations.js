@@ -1,3 +1,5 @@
+import {AxiosInstance as axios} from "axios";
+
 export default class {
 
   static fetchAll(lat,lng) {

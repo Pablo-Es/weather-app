@@ -1,4 +1,4 @@
-import Locations from '../../api/Locations'
+import axios from 'axios'
 
 import * as types from '../mutation-types'
 
@@ -8,31 +8,36 @@ let timeoutToken = null
 // initial state
 const state = {
 
-  cords: null
+  cords: null,
+  all:[],
 }
 
 // getters
 const getters = {
-
+getCoord: (state) => {
+  return state.cords;
+},
 }
 
 // actions
 const actions = {
-  setCord ({commit}, cords) {
-    console.log(cords)
+  setCord ({commit, state}, cords) {
+
     commit(types.LOCATIONS_CORD_SET, cords)
+
   },
-  fetchAll ({commit}) {
-    commit(types.LOCATIONS_ALL_SET, {
-      items: []
-    })
-    return Locations
-      .fetchAll(lat, lng)
+  fetchAll ({commit}, {lat,lng}) {
+    axios
+      .get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&APPID=ba74e775820c1854af18db066eb9d76e`)
       .then(data => {
-        commit(types.LOCATIONS_ALL_SET, {
-          items: data
-        })
+        commit(types.LOCATIONS_ALL_SET,
+          {
+            items: data.data,
+          })
+
+
       })
+      .catch(data => console.log('something gone wrong'))
   }
 
 }
@@ -40,8 +45,8 @@ const actions = {
 // mutations
 const mutations = {
 
-  [types.LOCATIONS_ALL_SET] (state, {items}) {
-    state.all = state.all.concat(items)
+  [types.LOCATIONS_ALL_SET] (state, data) {
+    state.all = data
   },
   [types.LOCATIONS_CORD_SET] (state, payload) {
     state.cords = payload

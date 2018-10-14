@@ -47,12 +47,12 @@
 
 <script>
 import MarkerView from './MarkerView'
-import { mapActions } from 'vuex'
-import {AxiosInstance as axios} from 'axios'
+import { mapActions, mapGetters, mapState } from 'vuex'
+
 export default {
   name: 'MapView',
   components: {MarkerView},
-  data () {
+  data() {
     return {
       dialog: false,
       center: {
@@ -68,9 +68,10 @@ export default {
   },
   methods: {
     ...mapActions({
-      setCord: 'map/setCord'
+      setCord: 'map/setCord',
+      fetchAll: 'map/fetchAll'
     }),
-    getInfoEvent (e) {
+    getInfoEvent(e) {
       const {latLng: {lat, lng}} = e
       let pos = {
         lat: lat(),
@@ -80,8 +81,15 @@ export default {
       this.positions.push(pos)
       this.dialog = true
       this.setCord(pos)
+      this.fetchAll(pos)
+
     }
 
+  },
+  computed: {
+    ...mapState({
+      coords: (state) => state.map.cords,
+    }),
   }
 }
 </script>
