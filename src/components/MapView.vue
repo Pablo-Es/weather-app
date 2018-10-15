@@ -15,7 +15,7 @@
     <v-layout>
       <v-flex xs12>
         <GmapMap
-          @click="getInfoEvent"
+          @click="getLocation"
           :center="center"
           :zoom="zoom"
           style="width: 100%; height: 80vh"
@@ -31,12 +31,12 @@
       <v-layout row justify-center>
         <v-dialog v-model="dialog" persistent max-width="290">
           <v-card>
-            <v-card-title class="headline">Use Google's location service?</v-card-title>
-            <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+            <v-card-title class="headline">Add location {{}} ?</v-card-title>
+
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="green darken-1" flat @click.native="dialog = false">Disagree</v-btn>
-              <v-btn color="green darken-1" flat @click.native="dialog = false">Agree</v-btn>
+              <v-btn color="green darken-1" flat @click.native="dialog = false">Cancel</v-btn>
+              <v-btn color="green darken-1" flat @click.native="addLocation">Add</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -55,6 +55,7 @@ export default {
   data() {
     return {
       dialog: false,
+      confirmLocation: false,
       center: {
         lat: 49.0795316,
         lng: 9.1522207
@@ -66,31 +67,45 @@ export default {
 
     }
   },
+  watch: {
+
+  },
   methods: {
     ...mapActions({
       setCord: 'map/setCord',
-      fetchAll: 'map/fetchAll'
+      fetchOne: 'map/fetchOne',
+      addToAll: 'map/addToAll',
     }),
-    getInfoEvent(e) {
+    getLocation(e) {
       const {latLng: {lat, lng}} = e
       let pos = {
         lat: lat(),
         lng: lng()
       }
 
-      this.positions.push(pos)
       this.dialog = true
       this.setCord(pos)
-      this.fetchAll(pos)
+      this.fetchOne(pos)
 
-    }
+    },
+    addLocation() {
+
+      this.addToAll();
+this.dialog = false;
+
+},
 
   },
   computed: {
     ...mapState({
       coords: (state) => state.map.cords,
+      all: (state) => state.map.all,
+      one: (state) => state.map.one,
     }),
-  }
+
+
+    },
+
 }
 </script>
 
