@@ -2,7 +2,7 @@
   <GmapMarker
     @click="isOpen = true"
 
-    :position="markerPos"
+    :position="{lat:location.coord.lat,lng:location.coord.lon}"
     >
     <gmap-info-window
       :opened="isOpen"
@@ -11,10 +11,10 @@
       <div>
 
           <header class="info-window__header">
-            <h3>Current weather for {{cityName}}</h3>
+            <h3>Current weather for {{location.name}}</h3>
           </header>
           <div>
-            <p>temperatura {{currentTemp}}</p>
+            <p>temperatura {{location.main.temp}}</p>
 
           </div>
 
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+
     export default {
         name: "MarkerView",
       data(){
@@ -41,23 +41,11 @@
         }
       },
       mounted() {
-          let url = `http://api.openweathermap.org/data/2.5/weather?lat=${this.markerPos.lat}&lon=${this.markerPos.lng}&units=metric&APPID=ba74e775820c1854af18db066eb9d76e`;
-          axios
-            .get(url)
-            .then(response => {
-              this.currentTemp = response.data.main.temp;
-              this.cityName = response.data.name;
 
-
-            })
-            .catch(error => {
-              console.log(error);
-            });
-          console.log(this.currentTemp);
 
       },
       props: {
-        markerPos: Object,
+        location: Object,
       }
     }
 </script>

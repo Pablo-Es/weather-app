@@ -21,9 +21,9 @@
           style="width: 100%; height: 80vh"
         >
           <marker-view
-            :key="position.id"
-            v-for="position in positions"
-          :markerPos="position"
+            :key="location.id"
+            v-for="location in allLocations"
+          :location="location"
           />
         </GmapMap>
       </v-flex>
@@ -31,7 +31,7 @@
       <v-layout row justify-center>
         <v-dialog v-model="dialog" persistent max-width="290">
           <v-card>
-            <v-card-title class="headline">Add location {{}} ?</v-card-title>
+            <v-card-title class="headline" v-if="one">Add location {{one.name}} ?</v-card-title>
 
             <v-card-actions>
               <v-spacer></v-spacer>
@@ -98,8 +98,7 @@ this.dialog = false;
   },
   computed: {
     ...mapState({
-      coords: (state) => state.map.cords,
-      all: (state) => state.map.all,
+      allLocations: (state) => state.map.all,
       one: (state) => state.map.one,
     }),
 
