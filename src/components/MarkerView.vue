@@ -14,7 +14,7 @@
             <h3>Current weather for {{location.name}}</h3>
           </header>
           <div>
-            <p>temperatura {{location.main.temp}}</p>
+            <p>{{mainData}} {{location.main.mainData}}</p>
 
           </div>
 
@@ -46,6 +46,7 @@
       },
       props: {
         location: Object,
+        mainData: String,
       }
     }
 </script>

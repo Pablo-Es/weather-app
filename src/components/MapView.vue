@@ -6,6 +6,7 @@
       </v-flex>
       <v-flex md2 d-flex>
         <v-select
+          v-model="selected"
           :items="dataCategories"
           label="Data category"
         ></v-select>
@@ -24,12 +25,13 @@
             :key="location.id"
             v-for="location in allLocations"
           :location="location"
+            :mainData="selected"
           />
         </GmapMap>
       </v-flex>
     </v-layout>
       <v-layout row justify-center>
-        <v-dialog v-model="dialog" persistent max-width="290">
+        <v-dialog v-model="dialog" persistent max-width="350">
           <v-card>
             <v-card-title class="headline" v-if="one">Add location {{one.name}} ?</v-card-title>
 
@@ -57,13 +59,14 @@ export default {
       dialog: false,
       confirmLocation: false,
       center: {
-        lat: 49.0795316,
-        lng: 9.1522207
+        lat: 51.8822522,
+        lng: 19.8022063
       },
+      selected:'',
       zoom: 5,
       positions: [],
       currentTemp: '',
-      dataCategories: ['temperature', 'humidity', 'pressure']
+      dataCategories: ['temp', 'humidity', 'pressure']
 
     }
   },
