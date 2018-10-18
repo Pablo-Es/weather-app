@@ -14,7 +14,7 @@
             <h3>Current weather for {{location.name}}</h3>
           </header>
           <div>
-            <p>{{mainData}} {{location.main.mainData}}</p>
+            <p>{{mainData}} {{getWeatherParam()}}</p>
 
           </div>
 
@@ -40,8 +40,21 @@
 
         }
       },
+      methods:{
+          getWeatherParam() {
+            if(this.mainData === 'temp') {
+              return this.location.main.temp;
+            } else if(this.mainData === 'humidity'){
+              return this.location.main.humidity
+            } else if(this.mainData === 'pressure'){
+              return this.location.main.pressure;
+            }
+          }
+      },
       mounted() {
-
+          let dataParam = this.mainData;
+        console.log(this.location);
+        console.log(dataParam)
 
       },
       props: {

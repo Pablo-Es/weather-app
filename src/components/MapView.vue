@@ -62,7 +62,7 @@ export default {
         lat: 51.8822522,
         lng: 19.8022063
       },
-      selected:'',
+      selected:'temp',
       zoom: 5,
       positions: [],
       currentTemp: '',
