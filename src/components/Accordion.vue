@@ -4,11 +4,16 @@
     <v-expansion-panel>
       <v-expansion-panel-content
         v-for="location in allLocations"
-         :key="location.id">
+         :key="location.id"
       >
         <div slot="header">{{location.name}}</div>
         <v-card>
-          <v-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</v-card-text>
+          <v-card-text>
+            <h3>Curretnt Weather</h3>
+            <p>Temperature: {{location.main.temp}} °C</p>
+            <p>Pressure: {{location.main.pressure}} hPa</p>
+            <p>Humidity: {{location.main.humidity}} %</p>
+          </v-card-text>
         </v-card>
       </v-expansion-panel-content>
     </v-expansion-panel>
