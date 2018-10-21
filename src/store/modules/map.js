@@ -9,7 +9,7 @@ let timeoutToken = null
 const state = {
 
   cords: null,
-  all:[],
+  allLocations:[],
   one: null,
 }
 
@@ -55,7 +55,7 @@ const mutations = {
     state.cords = payload
   },
   [types.LOCATIONS_ALL_SET](state) {
-    state.all.push(state.one)
+    state.allLocations.push(state.one)
   },
 
 

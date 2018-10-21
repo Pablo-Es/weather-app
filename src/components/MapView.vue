@@ -51,9 +51,10 @@
 import MarkerView from './MarkerView'
 import { mapActions, mapGetters, mapState } from 'vuex'
 
+
 export default {
   name: 'MapView',
-  components: {MarkerView},
+  components: { MarkerView},
   data() {
     return {
       dialog: false,
@@ -101,7 +102,7 @@ this.dialog = false;
   },
   computed: {
     ...mapState({
-      allLocations: (state) => state.map.all,
+      allLocations: (state) => state.map.allLocations,
       one: (state) => state.map.one,
     }),
 

@@ -50,20 +50,9 @@
               return `${this.location.main.pressure} hPa`;
             }
           }
-        // getWeatherParam(mainData) {
-        //   if(mainData === this.location.main.mainData) {
-        //     return this.location.main.mainData;
-        //   } else {
-        //     return this.location.main.temp;
-        //   }
-        // }
-      },
-      mounted() {
-          let dataParam = this.mainData;
-        console.log(this.location);
-        console.log(dataParam)
 
       },
+
       props: {
         location: Object,
         mainData: String,
