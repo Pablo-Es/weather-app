@@ -42,14 +42,21 @@
       },
       methods:{
           getWeatherParam() {
-            if(this.mainData === 'temp') {
-              return this.location.main.temp;
+            if(this.mainData === 'temperature') {
+              return `${this.location.main.temp.toFixed(1)} °C`;
             } else if(this.mainData === 'humidity'){
-              return this.location.main.humidity
+              return `${this.location.main.humidity} %`;
             } else if(this.mainData === 'pressure'){
-              return this.location.main.pressure;
+              return `${this.location.main.pressure} hPa`;
             }
           }
+        // getWeatherParam(mainData) {
+        //   if(mainData === this.location.main.mainData) {
+        //     return this.location.main.mainData;
+        //   } else {
+        //     return this.location.main.temp;
+        //   }
+        // }
       },
       mounted() {
           let dataParam = this.mainData;

@@ -62,11 +62,11 @@ export default {
         lat: 51.8822522,
         lng: 19.8022063
       },
-      selected:'temp',
+      selected:'temperature',
       zoom: 5,
       positions: [],
       currentTemp: '',
-      dataCategories: ['temp', 'humidity', 'pressure']
+      dataCategories: ['temperature', 'humidity', 'pressure']
 
     }
   },

@@ -3,7 +3,7 @@
     <v-app>
     <v-container fluid grid-list-lg>
       <v-layout row wrap>
-        <map-view/>
+        <router-view  />
         <accordion/>
       </v-layout>
     </v-container>
