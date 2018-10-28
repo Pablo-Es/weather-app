@@ -8,12 +8,26 @@
       >
         <div slot="header">{{location.name}}</div>
         <v-card>
-          <v-card-text>
+          <v-card-actions class="data-infobox">
+            <v-layout>
+              <v-flex xs10>
+
             <h3>Curretnt Weather</h3>
             <p>Temperature: {{location.main.temp.toFixed(1)}} °C</p>
             <p>Pressure: {{location.main.pressure}} hPa</p>
             <p>Humidity: {{location.main.humidity}} %</p>
-          </v-card-text>
+              </v-flex>
+              <v-flex xs2>
+                <v-btn
+                  flat
+                  icon
+                  @click="removeLocation(location.id)"
+                >
+                  <v-icon>delete</v-icon>
+                </v-btn>
+              </v-flex>
+            </v-layout>
+          </v-card-actions>
           <v-card-text>
             <v-textarea
               name="notes"
@@ -35,13 +49,24 @@
   export default {
         name: "Accordion",
       mounted() {
-        console.log(this.locationData, 'location');
+
       },
     computed: {
       ...mapState({
         allLocations: (state) => state.map.allLocations,
       }),
 
+    },
+    methods:{
+      ...mapActions({
+        remove: 'map/remove',
+      }),
+      removeLocation(locId) {
+        const newLocations = this.allLocations.filter(item => {
+          return item.id !== locId;
+        });
+        this.remove(newLocations);
+      },
 
     },
 
@@ -49,7 +74,11 @@
 </script>
 
 <style scoped>
-h2  {
-  margin-bottom: 51px;
-}
+  .data-infobox p {
+margin-bottom: 5px;
+  }
+  h2 {
+    margin-bottom:51px;
+  }
+
 </style>

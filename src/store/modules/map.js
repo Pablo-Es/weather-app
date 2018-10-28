@@ -31,6 +31,9 @@ const actions = {
 commit(types.LOCATIONS_ALL_SET)
 
 },
+  remove({commit}, payload) {
+    commit(types.LOCATIONS_REMOVE_ONE, payload)
+  },
   fetchOne ({commit}, {lat,lng}) {
     axios
       .get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&units=metric&APPID=ba74e775820c1854af18db066eb9d76e`)
@@ -56,6 +59,9 @@ const mutations = {
   },
   [types.LOCATIONS_ALL_SET](state) {
     state.allLocations.push(state.one)
+  },
+  [types.LOCATIONS_REMOVE_ONE] (state, payload) {
+    state.allLocations = payload;
   },
 
 
