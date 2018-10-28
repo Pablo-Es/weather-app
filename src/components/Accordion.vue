@@ -10,10 +10,19 @@
         <v-card>
           <v-card-text>
             <h3>Curretnt Weather</h3>
-            <p>Temperature: {{location.main.temp}} °C</p>
+            <p>Temperature: {{location.main.temp.toFixed(1)}} °C</p>
             <p>Pressure: {{location.main.pressure}} hPa</p>
             <p>Humidity: {{location.main.humidity}} %</p>
           </v-card-text>
+          <v-card-text>
+            <v-textarea
+              name="notes"
+              label="notes"
+              value=""
+              hint="Hint text"
+            ></v-textarea>
+          </v-card-text>
+
         </v-card>
       </v-expansion-panel-content>
     </v-expansion-panel>
