@@ -6,22 +6,22 @@
         v-for="location in allLocations"
          :key="location.id"
       >
-        <div slot="header">{{location.name}}</div>
+        <div slot="header">{{location.data.name}}</div>
         <v-card>
           <v-card-actions class="data-infobox">
             <v-layout>
               <v-flex xs10>
 
             <h3>Curretnt Weather</h3>
-            <p>Temperature: {{location.main.temp.toFixed(1)}} °C</p>
-            <p>Pressure: {{location.main.pressure}} hPa</p>
-            <p>Humidity: {{location.main.humidity}} %</p>
+            <p>Temperature: {{location.data.main.temp.toFixed(1)}} °C</p>
+            <p>Pressure: {{location.data.main.pressure}} hPa</p>
+            <p>Humidity: {{location.data.main.humidity}} %</p>
               </v-flex>
               <v-flex xs2>
                 <v-btn
                   flat
                   icon
-                  @click="removeLocation(location.id)"
+                  @click="removeLocation(location.data.id)"
                 >
                   <v-icon>delete</v-icon>
                 </v-btn>
@@ -63,7 +63,7 @@
       }),
       removeLocation(locId) {
         const newLocations = this.allLocations.filter(item => {
-          return item.id !== locId;
+          return item.data.id !== locId;
         });
         this.remove(newLocations);
       },

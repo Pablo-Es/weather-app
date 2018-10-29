@@ -33,7 +33,7 @@
       <v-layout row justify-center>
         <v-dialog v-model="dialog" persistent max-width="350">
           <v-card>
-            <v-card-title class="headline" v-if="one">Add location {{one.name}} ?</v-card-title>
+            <v-card-title class="headline" v-if="one">Add location {{one.data.name}} ?</v-card-title>
 
             <v-card-actions>
               <v-spacer></v-spacer>

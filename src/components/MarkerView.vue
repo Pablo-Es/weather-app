@@ -2,7 +2,7 @@
   <GmapMarker
     @click="isOpen = true"
 
-    :position="{lat:location.coord.lat,lng:location.coord.lon}"
+    :position="{lat:location.data.coord.lat,lng:location.data.coord.lon}"
     >
     <gmap-info-window
       :opened="isOpen"
@@ -11,7 +11,7 @@
       <div>
 
           <header class="info-window__header">
-            <h3>Current weather for {{location.name}}</h3>
+            <h3>Current weather for {{location.data.name}}</h3>
           </header>
           <div>
             <p>{{mainData}} {{getWeatherParam()}}</p>
@@ -43,11 +43,11 @@
       methods:{
           getWeatherParam() {
             if(this.mainData === 'temperature') {
-              return `${this.location.main.temp.toFixed(1)} °C`;
+              return `${this.location.data.main.temp.toFixed(1)} °C`;
             } else if(this.mainData === 'humidity'){
-              return `${this.location.main.humidity} %`;
+              return `${this.location.data.main.humidity} %`;
             } else if(this.mainData === 'pressure'){
-              return `${this.location.main.pressure} hPa`;
+              return `${this.location.data.main.pressure} hPa`;
             }
           }
 

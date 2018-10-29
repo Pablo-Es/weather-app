@@ -13,6 +13,8 @@ const state = {
   one: null,
 }
 
+
+
 // getters
 const getters = {
 getCoord: (state) => {
@@ -52,7 +54,12 @@ commit(types.LOCATIONS_ALL_SET)
 const mutations = {
 
   [types.LOCATIONS_ONE_SET] (state, data) {
-    state.one = data.data
+    let setOne = {
+      data: data.data,
+      notes: '',
+    };
+    state.one = setOne;
+
   },
   [types.LOCATIONS_CORD_SET] (state, payload) {
     state.cords = payload
