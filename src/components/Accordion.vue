@@ -55,6 +55,26 @@
       ...mapState({
         allLocations: (state) => state.map.allLocations,
       }),
+      search: {
+        // getter
+        get() {
+
+          return this.$store.state.partners.searchTerm;
+        },
+        // setter
+        set(newValue) {
+
+          this.setSearchTerm(newValue);
+          this.getQuery().then((data) => {
+            this.$router.push({
+              query: data
+            });
+
+          });
+          this.errorMessages = this.partners.length === 0 ? ['No search results'] : [];
+        },
+
+      }
 
     },
     methods:{
