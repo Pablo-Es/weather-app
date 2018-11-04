@@ -1,6 +1,19 @@
 <template>
   <v-flex md4>
+    <v-layout>
+      <v-flex md6>
     <h2>Locations</h2>
+
+      </v-flex>
+<v-flex md6>
+  <v-text-field
+    label="search..."
+    append-icon="search"
+    :clearable="true"
+  ></v-text-field>
+
+</v-flex>
+    </v-layout>
     <v-expansion-panel>
       <v-expansion-panel-content
         v-for="location in allLocations"
@@ -98,7 +111,7 @@
 margin-bottom: 5px;
   }
   h2 {
-    margin-bottom:51px;
+    margin-top:16px;
   }
 
 </style>

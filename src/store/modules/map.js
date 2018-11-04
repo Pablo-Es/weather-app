@@ -65,7 +65,7 @@ const actions = {
       })
       .catch(data => console.log('something gone wrong'))
   },
-  setSearchTerm( { commit, dispatch, state }, payload) {
+  setSearchTerm( { commit, state }, payload) {
     commit(types.SEARCH_TERM_SET, payload);
   },
 
