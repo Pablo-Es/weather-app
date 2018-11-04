@@ -24,12 +24,11 @@ const filter = (store) => {
 
 
     if (searchTerm.length === 0) {
-      store.one = null;
       return data;
     }
 
-    data = data.filter(item => {
-      return  String(item.name).toLowerCase().includes(searchTerm);
+    data = data.filter(({data}) => {
+      return  String(data.name).toLowerCase().includes(searchTerm);
     });
   }
 

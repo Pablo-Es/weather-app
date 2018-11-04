@@ -10,6 +10,8 @@
     label="search..."
     append-icon="search"
     :clearable="true"
+    :error-messages="errorMessages"
+    v-model="search"
   ></v-text-field>
 
 </v-flex>
@@ -64,6 +66,12 @@
       mounted() {
 
       },
+    data() {
+      return {
+        errorMessages: [],
+
+      }
+    },
     computed: {
       ...mapState({
         allLocations: (state) => state.map.allLocations,
@@ -72,19 +80,14 @@
         // getter
         get() {
 
-          return this.$store.state.partners.searchTerm;
+          return this.$store.state.map.searchTerm;
         },
         // setter
         set(newValue) {
 
           this.setSearchTerm(newValue);
-          this.getQuery().then((data) => {
-            this.$router.push({
-              query: data
-            });
 
-          });
-          this.errorMessages = this.partners.length === 0 ? ['No search results'] : [];
+          this.errorMessages = this.allLocations.length === 0 ? ['No search results'] : [];
         },
 
       }
@@ -93,6 +96,7 @@
     methods:{
       ...mapActions({
         remove: 'map/remove',
+        setSearchTerm: 'map/setSearchTerm',
       }),
       removeLocation(locId) {
         const newLocations = this.allLocations.filter(item => {
