@@ -18,7 +18,7 @@
     </v-layout>
     <v-expansion-panel>
       <v-expansion-panel-content
-        v-for="location in allLocations"
+        v-for="location in all"
          :key="location.id"
       >
         <div slot="header">{{location.data.name}}</div>
@@ -75,6 +75,7 @@
     computed: {
       ...mapState({
         allLocations: (state) => state.map.allLocations,
+        all: (state) => state.map.all,
       }),
       search: {
         // getter
@@ -87,10 +88,10 @@
 
           this.setSearchTerm(newValue);
 
-          this.errorMessages = this.allLocations.length === 0 ? ['No search results'] : [];
+          this.errorMessages = this.all.length === 0 ? ['No search results'] : [];
         },
 
-      }
+      },
 
     },
     methods:{

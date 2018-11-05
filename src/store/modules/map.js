@@ -9,27 +9,29 @@ let timeoutToken = null
 const state = {
 
   cords: null,
+  all:[],
   allLocations: [],
   one: null,
   searchTerm: '',
 }
 const filter = (store) => {
-
-  let data = store.allLocations.slice();
-
+store.all = [...store.allLocations];
+let data = store.all;
   if(store.searchTerm) {
 
     const searchTerm = String(store.searchTerm).toLowerCase().trim();
 
 
 
-    if (searchTerm.length === 0) {
-      return data;
-    }
-
     data = data.filter(({data}) => {
       return  String(data.name).toLowerCase().includes(searchTerm);
     });
+      console.log(data);
+
+    if (searchTerm.length === 0) {
+
+      return data;
+    }
   }
 
 
@@ -74,15 +76,15 @@ const actions = {
 // mutations
 const mutations = {
 
-  [types.LOCATIONS_ONE_SET] (state, data) {
+  [types.LOCATIONS_ONE_SET] (state, {data}) {
     state.one = {
-      data: data.data,
+      data: data,
       notes: ''
     }
   },
   [types.SEARCH_TERM_SET] (state, payload) {
     state.searchTerm = payload;
-    state.allLocations = filter(state);
+    state.all = filter(state);
 
 
   },
@@ -92,6 +94,7 @@ const mutations = {
   },
   [types.LOCATIONS_ALL_SET] (state) {
     state.allLocations.push(state.one)
+    state.one = null
   },
   [types.LOCATIONS_REMOVE_ONE] (state, payload) {
     state.allLocations = payload
