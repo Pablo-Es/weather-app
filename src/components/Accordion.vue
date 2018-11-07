@@ -10,6 +10,7 @@
     label="search..."
     append-icon="search"
     :clearable="true"
+    :loading="false"
     :error-messages="errorMessages"
     v-model="search"
   ></v-text-field>
@@ -18,7 +19,7 @@
     </v-layout>
     <v-expansion-panel>
       <v-expansion-panel-content
-        v-for="location in all"
+        v-for="location in allFiltered"
          :key="location.id"
       >
         <div slot="header">{{location.data.name}}</div>
@@ -75,7 +76,7 @@
     computed: {
       ...mapState({
         allLocations: (state) => state.map.allLocations,
-        all: (state) => state.map.all,
+        allFiltered: (state) => state.map.allFiltered,
       }),
       search: {
         // getter
@@ -88,7 +89,7 @@
 
           this.setSearchTerm(newValue);
 
-          this.errorMessages = this.all.length === 0 ? ['No search results'] : [];
+          this.errorMessages = this.allFiltered.length === 0 ? ['No search results'] : [];
         },
 
       },

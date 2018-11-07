@@ -23,7 +23,7 @@
         >
           <marker-view
             :key="location.id"
-            v-for="location in allLocations"
+            v-for="location in allFiltered"
           :location="location"
             :mainData="selected"
           />
@@ -102,6 +102,7 @@ this.dialog = false;
   },
   computed: {
     ...mapState({
+      allFiltered: (state) => state.map.allFiltered,
       allLocations: (state) => state.map.allLocations,
       one: (state) => state.map.one,
     }),
