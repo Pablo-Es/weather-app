@@ -46,6 +46,7 @@
           </v-card-actions>
           <v-card-text>
             <v-textarea
+              v-model="note"
               name="notes"
               label="notes"
               value=""
@@ -93,12 +94,21 @@
         },
 
       },
+      note: {
+        get() {
+          return this.$store.state.map.note;
+        },
+        set(nv) {
+          this.setNote(nv);
+        }
+      },
 
     },
     methods:{
       ...mapActions({
         remove: 'map/remove',
         setSearchTerm: 'map/setSearchTerm',
+        setNote: 'map/setNote',
       }),
       removeLocation(locId) {
         const newLocations = this.allLocations.filter(item => {

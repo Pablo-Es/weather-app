@@ -13,6 +13,8 @@ const state = {
   allLocations: [],
   one: null,
   searchTerm: '',
+  note: '',
+
 }
 const filter = (store) => {
 
@@ -70,6 +72,9 @@ const actions = {
   setSearchTerm( { commit, state }, payload) {
     commit(types.SEARCH_TERM_SET, payload);
   },
+  setNote({commit, state}, payload){
+    commit(types.NOTE_TERM_SET, payload);
+  },
 
 
 }
@@ -100,6 +105,10 @@ const mutations = {
   },
   [types.LOCATIONS_REMOVE_ONE] (state, payload) {
     state.allLocations = payload
+    state.allFiltered = filter(state);
+  },
+  [types.NOTE_TERM_SET] (state, payload) {
+    state.note = payload
     state.allFiltered = filter(state);
   }
 
