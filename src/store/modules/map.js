@@ -13,7 +13,8 @@ const state = {
   allLocations: [],
   one: null,
   searchTerm: '',
-  note: '',
+  message: '',
+  currentIdLoc:[],
 
 }
 const filter = (store) => {
@@ -72,9 +73,13 @@ const actions = {
   setSearchTerm( { commit, state }, payload) {
     commit(types.SEARCH_TERM_SET, payload);
   },
+  setCurrentIdLoc({ commit, state }, payload) {
+    commit(types.SET_CURRENT_LOC, payload);
+  },
   setNote({commit, state}, payload){
     commit(types.NOTE_TERM_SET, payload);
   },
+
 
 
 }
@@ -94,6 +99,9 @@ const mutations = {
 
 
   },
+  [types.SET_CURRENT_LOC] (state, payload) {
+    state.currentIdLoc = payload;
+  },
 
   [types.LOCATIONS_CORD_SET] (state, payload) {
     state.cords = payload
@@ -108,7 +116,7 @@ const mutations = {
     state.allFiltered = filter(state);
   },
   [types.NOTE_TERM_SET] (state, payload) {
-    state.note = payload
+    state.message = payload
     state.allFiltered = filter(state);
   }
 

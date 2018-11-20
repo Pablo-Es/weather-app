@@ -5,7 +5,7 @@
     <h2>Locations</h2>
 
       </v-flex>
-<v-flex md6>
+      <v-flex md6>
   <v-text-field
     label="search..."
     append-icon="search"
@@ -20,7 +20,7 @@
     <v-expansion-panel>
       <v-expansion-panel-content
         v-for="location in allFiltered"
-         :key="location.id"
+        :key="location.data.id"
       >
         <div slot="header">{{location.data.name}}</div>
         <v-card>
@@ -28,10 +28,10 @@
             <v-layout>
               <v-flex xs10>
 
-            <h3>Curretnt Weather</h3>
-            <p>Temperature: {{location.data.main.temp.toFixed(1)}} °C</p>
-            <p>Pressure: {{location.data.main.pressure}} hPa</p>
-            <p>Humidity: {{location.data.main.humidity}} %</p>
+                <h3>Curretnt Weather</h3>
+                <p>Temperature: {{location.data.main.temp.toFixed(1)}} °C</p>
+                <p>Pressure: {{location.data.main.pressure}} hPa</p>
+                <p>Humidity: {{location.data.main.humidity}} %</p>
               </v-flex>
               <v-flex xs2>
                 <v-btn
@@ -47,15 +47,16 @@
           <v-card-text>
             <v-textarea
               v-model="note"
+@focus="toggleLocId(location.data.id)"
               name="notes"
               label="notes"
-              value=""
               hint="Hint text"
             ></v-textarea>
           </v-card-text>
 
         </v-card>
       </v-expansion-panel-content>
+
     </v-expansion-panel>
   </v-flex>
 </template>
@@ -63,14 +64,17 @@
 <script>
   import { mapActions, mapGetters, mapState } from 'vuex'
 
+
   export default {
         name: "Accordion",
-      mounted() {
+
+    mounted() {
 
       },
     data() {
       return {
         errorMessages: [],
+
 
       }
     },
@@ -79,6 +83,15 @@
         allLocations: (state) => state.map.allLocations,
         allFiltered: (state) => state.map.allFiltered,
       }),
+      vLocationId:{
+  ...mapState({
+      get: (state) => state.map.currentIdLoc,
+
+    }),
+  ...mapActions({
+      set: 'map/setCurrentIdLoc',
+    }),
+  },
       search: {
         // getter
         get() {
@@ -94,25 +107,41 @@
         },
 
       },
-      note: {
-        get() {
-          return this.$store.state.map.note;
+      note:{
+        get () {
+          return this.$store.state.message
         },
-        set(nv) {
-          this.setNote(nv);
+        set (value) {
+          this.setMessage(value);
         }
       },
 
+
     },
+
+
     methods:{
       ...mapActions({
         remove: 'map/remove',
         setSearchTerm: 'map/setSearchTerm',
-        setNote: 'map/setNote',
+        setMessage: 'map/setNote',
       }),
-      removeLocation(locId) {
+      toggleLocId(id) {
+        let idx = this.vLocationId.indexOf(id);
+        let tmp = [...this.vLocationId];
+
+        if (-1 === idx) {
+          tmp.push(id);
+        } else {
+
+          tmp.splice(idx, 1);
+        }
+        this.vLocationId = tmp;
+
+      },
+      removeLocation(id) {
         const newLocations = this.allLocations.filter(item => {
-          return item.data.id !== locId;
+          return item.data.id !== id;
         });
         this.remove(newLocations);
       },
