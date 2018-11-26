@@ -14,7 +14,8 @@ const state = {
   one: null,
   searchTerm: '',
   message: '',
-  currentIdLoc:[],
+  currentIdLoc:null,
+
 
 }
 const filter = (store) => {
@@ -36,7 +37,20 @@ let data = [...store.allLocations];
 
       return data;
     }
+  }if(0 < (store.currentIdLoc && store.message)) {
+
+    data = data.filter(({data}) => {
+
+      return data.id === store.currentIdLoc.id
+    })
+      .map(({data}) => {
+        return {
+          data: data,
+          note: store.message,
+        }
+      })
   }
+
 
 
 
@@ -47,7 +61,11 @@ let data = [...store.allLocations];
 const getters = {
   getCoord: (state) => {
     return state.cords
-  }
+  },
+  getFocusedLoc: (state) => {
+    return state.currentIdLoc
+  },
+
 }
 
 // actions
@@ -79,6 +97,9 @@ const actions = {
   setNote({commit, state}, payload){
     commit(types.NOTE_TERM_SET, payload);
   },
+  setMessageToLoc({commit, state}, payload) {
+    commit(types.SET_MESSAGE_LOC, payload);
+  }
 
 
 
@@ -99,7 +120,12 @@ const mutations = {
 
 
   },
+
   [types.SET_CURRENT_LOC] (state, payload) {
+    state.currentIdLoc = payload;
+    state.allFiltered = filter(state);
+  },
+  [types.SET_MESSAGE_LOC] (state, payload) {
     state.currentIdLoc = payload;
   },
 

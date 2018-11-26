@@ -46,8 +46,8 @@
           </v-card-actions>
           <v-card-text>
             <v-textarea
-              v-model="note"
-@focus="toggleLocId(location.data.id)"
+              @input="toggleLocId(location.data.id)"
+              v-model="location.notes"
               name="notes"
               label="notes"
               hint="Hint text"
@@ -76,12 +76,18 @@
         errorMessages: [],
 
 
+
+
       }
     },
+
     computed: {
       ...mapState({
         allLocations: (state) => state.map.allLocations,
         allFiltered: (state) => state.map.allFiltered,
+      }),
+      ...mapGetters({
+        focusedLoc: 'map/getFocusedLoc',
       }),
       vLocationId:{
   ...mapState({
@@ -107,14 +113,14 @@
         },
 
       },
-      note:{
-        get () {
-          return this.$store.state.message
-        },
-        set (value) {
-          this.setMessage(value);
-        }
-      },
+      // note:{
+      //   get () {
+      //     return this.$store.state.message
+      //   },
+      //   set (value) {
+      //     this.setMessage(value);
+      //   }
+      // },
 
 
     },
@@ -125,18 +131,12 @@
         remove: 'map/remove',
         setSearchTerm: 'map/setSearchTerm',
         setMessage: 'map/setNote',
+        setToggleLoc: 'map/setCurrentIdLoc',
       }),
+
       toggleLocId(id) {
-        let idx = this.vLocationId.indexOf(id);
-        let tmp = [...this.vLocationId];
-
-        if (-1 === idx) {
-          tmp.push(id);
-        } else {
-
-          tmp.splice(idx, 1);
-        }
-        this.vLocationId = tmp;
+       const oneLoc = this.allFiltered.find(({data}) => data.id === id);
+        this.setToggleLoc(oneLoc);
 
       },
       removeLocation(id) {
