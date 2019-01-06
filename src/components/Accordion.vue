@@ -113,14 +113,6 @@
         },
 
       },
-      // note:{
-      //   get () {
-      //     return this.$store.state.message
-      //   },
-      //   set (value) {
-      //     this.setMessage(value);
-      //   }
-      // },
 
 
     },

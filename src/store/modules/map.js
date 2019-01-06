@@ -70,6 +70,18 @@ const getters = {
 
 // actions
 const actions = {
+  refreshData({commit, state}){
+    const allCords = (state.allLocations.map(({data:{coord}}) => {
+      axios
+        .get(`http://api.openweathermap.org/data/2.5/weather?lat=${coord.lat}&lon=${coord.lon}&units=metric&APPID=ba74e775820c1854af18db066eb9d76e`)
+        .then(data => {
+          console.log(data);
+        })
+    }));
+    return allCords;
+
+  },
+
   setCord ({commit, state}, cords) {
     commit(types.LOCATIONS_CORD_SET, cords)
   },

@@ -14,9 +14,18 @@
 <script>
 import MapView from "./components/MapView";
 import Accordion from "./components/Accordion";
+import { mapActions } from 'vuex'
 export default {
   name: 'App',
-  components: {Accordion, MapView}
+  components: {Accordion, MapView},
+  methods: {
+    ...mapActions({
+      refreshData: 'map/refreshData',
+    })
+  },
+  mounted(){
+    // this.refreshData();
+  }
 }
 </script>
 
